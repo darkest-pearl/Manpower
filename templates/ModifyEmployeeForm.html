@@ -1,0 +1,192 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Tayseer Agency Edit Employee Profile</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="{{ url_for('static', filename='styles/assets/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/fonts/font-awesome.min.css') }}">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='styles/dashboard.css')}}" rel="stylesheet">
+  </head>
+  <body>
+    
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><img class="me-3" height="48px;" width="48px;" src="{{ url_for('static', filename='images/tayseer_logo_dark.jpg') }}" style="border-radius:150px; margin-left: -5%;">Tayseer Agency</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100" type="text" disabled placeholder="Search" aria-label="Search">
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="#">Sign out</a>
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Navigate Page</span>
+            <a class="link-secondary" href="#" aria-label="Add a new report">
+              <span data-feather="plus-circle"></span>
+            </a>
+          </h6>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#personal">
+              <span data-feather="home"></span>
+              Personal Details Form
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#additional">
+              <span data-feather="bar-chart-2"></span>
+              Additional Details Form
+            </a>
+          </li>                    
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>External Links</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}">
+              <span data-feather="file-text"></span>
+              Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('register_employee') }}">
+              <span data-feather="file-text"></span>
+              Register Employee
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('list_employees') }}">
+              <span data-feather="file-text"></span>
+              Complete Employees list
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('list_employers') }}">
+              <span data-feather="file-text"></span>
+              Complete Employers list
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('list_brokers') }}">
+              <span data-feather="file-text"></span>
+              Complete Brokers list
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div id="stats" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Edit <label style="font-family:Script MT Bold;">{{employee.name}}</label>'s Profile</h1>
+      </div>
+      <form action="{{ url_for('modify_employee_form', employee_id=employee.id, location=location) }}" enctype="multipart/form-data" method="post">
+          <div class='form-control'>
+              <p class='h4' id="personal">Personal Details</p>
+              <div class="mb-3" style="width:450px;float:left; margin-left:5px;margin-right:5px;"><input class="form-control" type="text" id="floatingInput" name="name" placeholder="Fullname:{{employee.name}}"><span><font color='red'>{{message[0]}}</font></span></div>
+              <div class="mb-3" style="width:450px;float:left;margin-left:5px;margin-right:5px;"><input class="form-control" type="tel" id="floatingInput" placeholder="Contact #:{{employee.contact}}" name="contact-no"><span><font color='red'>{{message[1]}}</font></span></div>
+              <div class="mb-3" style="width:450px;float:left;margin-left:5px;margin-right:5px;"><input class="form-control" type="text" id="floatingInput" placeholder="Address:{{employee.address}}" name="address"><span><font color='red'>{{message[2]}}</font></span></div>
+              <div class="mb-3" style="width:450px;float:left;margin-left:5px;margin-right:5px;"><input class="form-control" type="text" id="floatingInput" placeholder="Salary:{{employee.salary}}" name="salary"><span><font color='red'>{{message[3]}}</font></span></div>
+              <div class="mb-3" style="width:450px;float:left;margin-left:5px;margin-right:5px;"><input class="form-control" type="text" id="floatingInput" placeholder="National ID#:{{employee.national_id}}" name="national_id"><span><font color='red'>{{message[5]}}</font></span></div>
+              <div class="mb-3" style="width:450px;float:left;margin-left:5px;margin-right:5px;"><select class="form-control form-select" id="validationServer04" name="position"><option value="undefined" label="{{employee.position}}" selected disabled></option><option value="beauty salon">Beauty Salon</option><option value="cook">Cook</option><option value="baby sitter">Baby Sitter</option><option value="driver">Driver</option><option value="nurse">Nurse</option><option value="house maid">House Maid</option></select></div>
+              <label>Grid photo<input type="file" name="grid" class="form-control form-control-sm mb-3 border-0" style="width:450px;" aria-label="Small file input example"></label>
+          </div>
+        <div class='form-control' style="height:auto;">
+          <p class='h4' id="additional">Additional Details</p>
+          <div class="col-md-3"><select class="form-control form-select" style="margin-left:auto; margin-bottom:1em;" id="validationServer04" name="religion" style="width: 230px; margin-bottom: 5%; margin-left: -5%;"><option value="undefined" label="Religion:{{employee.religion}}" selected="" disabled="">Religion</option><option value="muslim">Muslim</option><option value="christian">Christian</option><option value="other">Other</option></select></div>
+          <div class="col-md-3"><select class="form-control form-select" style="margin-left:auto; margin-bottom:1em;" id="validationServer04" name="education" style="width: 280px;"><option value="undefined" label="Educational Attainment:{{employee.education}}" selected="" disabled=""></option><option value="Secondary School Graduate">Secondary School Graduate</option><option value="Middle School Graduate">Middle School Graduate</option><option value="Elementary School Graduate">Elementary School Graduate</option></select></div>
+          <div class="col-md-3"><select class="form-control form-select" style="margin-left:auto; margin-bottom:1em;" id="validationServer04" name="country" style="width: 280px;"><option value="undefined" label="Country of work:{{employee.name}}" selected="" disabled=""></option><option value="saudi">Saudi Arabia</option><option value="quwait">Quwait</option><option value="other">Other</option></select></div>
+          <div class="mb-3" style="width:258px;margin-left:5px;margin-right:5px;"><input class="form-control" type="text" id="floatingInput" placeholder="Place of Birth" name="pob"></div>
+          
+          <div class="mb-3" style="float:left;margin-right:2em;"><label>Date of Birth<br><input class="form-control" style="width:15em;" type="date" id='date-of-birth' name="dob"></label><span><font color="red">{{message[6]}}</font></span></div>                                
+          <div class="mb-3" style="width:10em;margin-right:2em;margin-top:1.5em;"><input class="form-control" type="number" id="floatingInput" name="no-child" placeholder="No of Children"><span><font color="red">{{message[7]}}</font></span></div>
+          <div class="form-foating"><label>Portrait Photo<br><input type="file" name="portrait" class="form-control form-control-sm mb-3 border-0" style="width:450px;" aria-label="Small file input example"></label></div>
+          <div class="row">
+          <div class="col-md-3" style="float: left;"><label class="form-label h6" for="customFile" style="margin-left: 10px;">Civil status<br></label>
+            {% if employee.status == 'single' %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="status" value="single" checked><label class="form-check-label" for="formCheck-1">Single</label></div>
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="status" value="married"><label class="form-check-label" for="formCheck-1">Married</label></div>
+            {% else %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="status" value="single"><label class="form-check-label" for="formCheck-1">Single</label></div>
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="status" value="married" checked><label class="form-check-label" for="formCheck-1">Married</label></div>
+          {% endif %}
+          </div>
+          <br>
+          <div class="col-md-3" style="float:left;"><label class="form-label h6" for="customFile" style="margin-left: 10px;">Gender<br></label>
+            {% if employee.gender == 'female' %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="gender" value="female" checked><label class="form-check-label" for="formCheck-1">Female</label></div>
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="gender" value="male"><label class="form-check-label" for="formCheck-1">Male</label></div>
+            {% else %}
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="gender" value="female"><label class="form-check-label" for="formCheck-1">Female</label></div>
+            <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="gender" value="male" checked><label class="form-check-label" for="formCheck-1">Male</label></div>
+            {% endif %}
+          </div>
+          <br>
+          <div class="col-md-3"><label class="h6">Language</label>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2" name="english" checked=""><label class="form-check-label" for="formCheck-2">English</label></div>
+            <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2" name="arabic" checked=""><label class="form-check-label" for="formCheck-2">Arabic</label></div>
+          </div>
+        </div>
+        <div align='center' style="width:40em; margin-top:2em;">
+          <button class="btn btn-primary" type="submit" style="margin-right: 20px; margin-top: 0.6%; font-size: 1.5em;">Submit</button>
+        </div>
+        </div>
+        
+          
+          
+      
+        
+    </main>
+  </div>
+</div>
+
+
+
+
+    <script src="{{ url_for('static', filename='styles/assets/dist/js/bootstrap.bundle.min.js') }}"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="{{ url_for('static', filename='styles/dashboard.js') }}"></script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Add Employer List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md bg-dark">
+        <div class="container-fluid"><img class="me-3" width="48px;" height="48px;" src="{{ url_for('static', filename='images/tayseer_logo_dark.jpg') }}" style="border-radius: 150px;"><a class="navbar-brand text-white" href="#" style="margin-left: 3%;">Tayseer Agency</a>
+            <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="{{ url_for('addEmployee') }}">Register Employee</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="{{ url_for('confirm_employer_overright', employer_id='999999', employee_id=employee.id, location=location) }}">New Employer</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container" align="center">
+        <h1>Select Employer for<br><b><u><i>{{ employee.name }}</i></u></b></h1>
+    </div>
+    <div class="">
+        <div class="table-responsive table-striped">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">ID#</th>
+                        <th>Employer Name</th>
+                        <th>National ID No.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for employer in employers %}
+                    <tr> 
+                        <td style="width: 5%;"><a style='color: inherit; text-decoration: none' href="{{ url_for('confirm_employer_overright', employer_id=employer.id, employee_id=employee.id, location=location) }}">{{ employer.id }}</a></td>
+                        <td><a style='color: inherit; text-decoration: none' href="{{ url_for('confirm_employer_overright', employer_id=employer.id, employee_id=employee.id, location=location) }}">{{ employer.name }}</a></td>
+                        <td>{{ employer.national_id }}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='styles/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='styles/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>

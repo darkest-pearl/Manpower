@@ -1,0 +1,246 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Tayseer Agency Home page</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="{{ url_for('static', filename='styles/assets/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/fonts/font-awesome.min.css') }}">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .corn {
+        color:cornflowerblue
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='styles/dashboard.css')}}" rel="stylesheet">
+  </head>
+  <body>
+    
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><img class="me-3" height="48px;" width="48px;" src="{{ url_for('static', filename='images/tayseer_logo_dark.jpg') }}" style="border-radius:150px; margin-left: -5%;">Tayseer Agency</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100" type="text" disabled placeholder="Search" aria-label="Search">
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="#">Sign out</a>
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>External Links</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="{{url_for('index') }}">
+              <span data-feather="home"></span>
+              Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('addEmployee') }}">
+              <span data-feather="file-text"></span>
+              Register Employee
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('list_employees') }}">
+              <span data-feather="file-text"></span>
+              Complete Employees list
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('list_employers') }}">
+              <span data-feather="file-text"></span>
+              Complete Employers list
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('list_brokers') }}">
+              <span data-feather="file-text"></span>
+              Complete Brokers list
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+        <div class="bd-example">
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+            <h1 class="h2" id="r-employer">Employee Profile</h1>{% if first == 1 %}<a href="" onclick="return alert('No Employees');" disabled><i class='fa fa-arrow-left'></i></a>{% else %}<a href="{{ url_for('prev_employee', employee_id=employee.id) }}"><i class='fa fa-arrow-left'></i></a>{% endif %}{% if last == 1 %}<a href="" onclick="return alert('No Employees');" disabled><i class='fa fa-arrow-right'></i></a>{% else %}<a href="{{ url_for('next_employee', employee_id=employee.id) }}"><i class='fa fa-arrow-right'></i></a>{% endif %}
+            <div class="btn-toolbar mb-2 mb-md-0">
+            <div class="btn-group me-2">
+            <button class="btn btn-sm btn-outline-secondary" type="button"><abbr title="Add Employer for the employee"><a style="text-decoration:none; color:inherit;" href="{{ url_for('addEmployer', employee_id=employee.id, location=3) }}"><i style="font-size: 1em;" class="fa fa-group"><sup><i class="fa fa-plus"></i></sup></i></a></abbr></button>
+            <button type="button" class="btn btn-sm btn-outline-secondary"><abbr title="Add Broker for the employee"><a style="text-decoration:none; color:inherit;" href="{{ url_for('addBroker', employee_id=employee.id, location=3) }}"><i style="font-size: 1em;" class="fa fa-user"><sup><i class="fa fa-plus"></i></sup></i></a></abbr></button>
+              <button type="button" class="btn btn-sm btn-outline-secondary"><abbr title="Edit Employee information"><a style="text-decoration:none; color:inherit;" href="{{ url_for('modify_employee', employee_id=employee.id, location=3) }}"><i class='fa fa-edit'></i>&nbsp;</a></abbr></button>
+              {% if employee.pport %}
+              {% if not employee.sent_2 %}
+              <button type="button" class="btn btn-sm btn-outline-secondary"><abbr title="Send Profile to Overseas Agencies"><a style='text-decoration:none; color:inherit;' href="{{ url_for('send_mail', employee_id=employee.id, location=3) }}"><i style="font-size: 1em;" class="fa fa-send-o"></i></a></abbr></button>
+              {% endif %}
+              {% else %}
+              <button type="button" class="btn btn-sm btn-outline-secondary"><abbr title="Send Profile to Overseas Agencies"><a style='text-decoration:none; color:inherit;' href="{{ url_for('add_passport', employee_id=employee.id, location=3) }}"><i style="font-size: 1em;color:rgb(53, 63, 95);" class="fa fa-list-alt"></i></a></abbr></button>
+              {% endif %}
+              <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+              
+              <button type="button" class="btn btn-sm btn-outline-secondary"><abbr title="Delete Employee Profile from Database"><a style="text-decoration:none; color:inherit;" href="{{ url_for('employee_remove', employee_id=employee.id, location=3) }}" onclick="return confirm('Do you want to delete employee {{employee.name.split()[0]}}');"><i class='fa fa-trash'></i></a></abbr></button>
+            </div></div></div>
+            
+          
+            <nav>
+              <div class="nav nav-tabs mb-3" id="nav-tab" role="tablist">
+                <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Personal Details</button>
+                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Additional Details</button>
+                <button class="nav-link" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Passport Details</button>
+              </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+              <div class="tab-pane fade active show" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                <p class='h3'>Personal Information</p>
+                <div class="col-sm-9 item">
+                  <div class="row">
+                      <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="{{ url_for('event_grid', employee_id=employee.id) }}"></a></div>
+                      <div class="col" style="width:fit-content;">
+                          <table class="table table-sstriped table-sm">
+                            <tr>
+                              <td><p class="description h5">Name</p></td><td><p class="description h5 corn">{{ employee.name }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Age</p></td><td><p class="description h5 corn">{{ age }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Gender</p></td><td><p class="description h5 corn">{% if employee.gender == 'female' %}<i class="fa fa-female"></i>{% else %}<i class='fa fa-male'></i>{% endif %}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">National ID</p></td><td><p class="description h5 corn">{{ employee.national_id }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5"><i class='fa fa-phone'></i></p></td><td><p class="description h5 corn">{{ employee.contact }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5"><i class='fa fa-home'></i></p></td><td><p class="description h5 corn">{{ employee.address }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Profession</p></td><td><p class="description h5 corn">{{ employee.position }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Employer name</p></td><td><p class="description h5 corn">{{ employer.name }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Broker name</p></td><td><p class="description h5 corn">{{ broker.name }}</p></td>
+                            </tr>
+                          </table>
+                          
+                      </div>
+                  </div>
+              </div>
+              </div>
+              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                <p class='h4'><strong>Additional Information</strong></p>
+                <div class="col-sm-9 item">
+                  <div class="row">
+                      <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="{{ url_for('event_portrait', employee_id=employee.id)}}"></a></div>
+                      <div class="col">
+                          <table class="table table-sstriped table-sm">
+                            <tr>
+                              <td><p class="description h5">Religion</p></td><td><p class="description h5 corn">{{ employee.religion }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Education</p></td><td><p class="description h5 corn">{{ employee.education }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Country of Work</p></td><td><p class="description h5 corn">{{ employee.country }}</td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Birth Date</p></td><td><p class="description h5 corn">{{ employee.dob }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Birth City</p></td><td><p class="description h5 corn">{{ employee.pob }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Children</p></td><td><p class="description h5 corn">{{ employee.no_of_child }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Civil Status</p></td><td><p class="description h5 corn">{{ employee.status }}</p></td>
+                            </tr>
+                          </table>
+                          
+                      </div>
+                  </div>
+              </div>
+              </div>
+              <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                <p class='h4'><strong>Passport Information</strong></p>
+                <div class="col-sm-6 item">
+                  <div class="row">
+                      <div class="col-md-12 col-lg-5"><a href="#"><img class="img-fluid" src="{{ url_for('event_passpic', employee_id=employee.id) }}"></a></div>
+                      <div class="col">
+                          <table class="table table-sstriped table-sm">
+                            <tr>
+                              <td><p class="description h5">Passport ID</p></td><td><p class="description h5 corn">{{ passport.pass_no }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Issued On</p></td><td><p class="description h5 corn">{{ passport.date_of_issue }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Place of Issue</p></td><td><p class="description h5 corn">{{ passport.place_of_issue }}</p></td>
+                            </tr>
+                            <tr>
+                              <td><p class="description h5">Expiry</p></td><td><p class="description h5 corn">{{ passport.date_of_expire }}</p></td>
+                            </tr>
+                          </table>
+                          
+                      </div>
+                  </div>
+              </div>
+              </div>
+            </div>
+            </div>
+    </main>
+  </div>
+</div>
+
+
+
+
+    <script src="{{ url_for('static', filename='styles/assets/dist/js/bootstrap.bundle.min.js') }}"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="{{ url_for('static', filename='styles/dashboard.js') }}"></script>
+  </body>
+</html>

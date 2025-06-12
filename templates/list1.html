@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>list</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/css/Navigation-with-Search.css') }}">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md bg-dark">
+        <div class="container-fluid"><img class="me-3" width="48px" height="48px" style="border-radius:150px;margin-right: 2%" src=" {{ url_for('static', filename='images/tayseer_logo_dark.jpg') }}"><a class="navbar-brand text-white" href="#">Tayseer Agency</a>
+            <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" role="presentation"><a class="nav-link active text-white" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="{{ url_for('addEmployee') }}">Register</a></li>
+                </ul>
+                <form class="form-inline mr-auto bg-dark text-white" target="_self" action="{{ url_for('list_employees') }}" method="post">
+                    <div class="form-group" style='margin-left:2em;'><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field text-white border-0" style='background-color:gray; margin-left:1em;' type="search" id="search-field" name="search" autocomplete><button class="btn btn-light bg-success text-white action-button" style='margin-left:1em;' type="submit">Search</button></div><span style="color:aliceblue; margin-left:11%;">{{ message }}</span>
+                </form>
+            </div>
+            
+        </div>
+    </nav>
+    <h1 class="h3" style="padding: 10px;">Employee List</h1>
+    <div class="table-responsive table-striped">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width:7%;">ID</th>
+                    <th style="width:30%">Full Name</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in completelist %}
+                <tr>
+                    <td>{{ employee.id }}</td>
+                    <td>{{ employee.name }}</td>
+                    <td>
+                        <div class="container-fluid">
+                        <button data-toggle="collapse" class="navbar-toggler" data-target="#operationcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                            <div class="collapse navbar-collapse" id="operationcol-1">
+                                <ul class="nav navbar-nav">
+                                    <li class="nav-item" role="presentation"><abbr title="Show Profile Details"><a class="nav-link" href="#"><i style="font-size: 1.5em;"  class="fa fa-info-circle"></i></a></abbr></li>
+                                    <li class="nav-item" role="presentation"><abbr title="Link/Add Employer"><a class="nav-link" href="{{ url_for('addEmployer', employee_id=employee.id) }}"><i style="font-size: 1.5em;" class="fa fa-group"><sup><i class="fa fa-plus"></i></sup></i>employer</a></abbr></li>
+                                    <li class="nav-item" role="presentation"><abbr title="Link/Add Broker"><a class="nav-link" href="{{ url_for('addBroker', employee_id=employee.id) }}"><i style="font-size: 1.5em;" class="fa fa-user"><sup><i class="fa fa-plus"></i></sup></i></a></abbr></li>
+                                    <li class="nav-item" role="presentation"><abbr title="Edit Profile"><a class="nav-link" href="{{ url_for('modify_employee', employee_id=employee.id) }}"><i style="font-size: 1.5em;" class="fa fa-edit"></i></a></abbr></li>
+                                    <li class="nav-item" role="presentation"><abbr title="Send Profile to Overseas Agencies"><a class="nav-link" href="#"><i style="font-size: 1.5em;" class="fa fa-send-o"></i></a></abbr></li>
+                                    <li class="nav-item" role="presentation"><abbr title="Send Profile to Labour Office"><a class="nav-link" href="#"><i style="font-size: 1.5em;"  class="fa fa-envelope"></i></a></abbr></li>
+                                    <li class="nav-item" role="presentation"><abbr title="Delete/Remove Profile"><a class="nav-link" href=" {{ url_for('confirm_employee_delete', employee_id=employee.id) }} "><i style="font-size: 1.5em;"  class="fa fa-trash"></i></a></abbr></li>
+                                </ul>
+                    
+                            </div>
+                        </div>
+                        <div class="embed-responsive">
+                        <div style="float:left; padding:1%; margin-top:0.25%;margin-left: 2em; margin-right: 2em;"><abbr title="Show Profile Details"><a href="#"><i style="font-size: 1.5em;"  class="fa fa-info-circle"></i></a></abbr></div>
+                        
+                        
+                        <div style="float:left; padding:1%; margin-top:0.25%;margin-left: 2em; margin-right: 2em;"><abbr title="Link/Add Employer"><a href="{{ url_for('addEmployer', employee_id=employee.id) }}"><i style="font-size: 1.5em;" class="fa fa-group"><sup><i class="fa fa-plus"></i></sup></i></a></abbr></div>
+                        
+                        
+                        <div style="float:left; padding: 1%; margin-top:0.25%;margin-left: 2em; margin-right: 2em;"><abbr title="Link/Add Broker"><a href="{{ url_for('addBroker', employee_id=employee.id) }}"><i style="font-size: 1.5em;" class="fa fa-user"><sup><i class="fa fa-plus"></i></sup></i></a></abbr></div>
+                        
+                        
+                        <div style="float:left; padding: 1%; margin-top:0.25%;margin-left: 2em; margin-right: 2em;"><abbr title="Edit Profile"><a href="{{ url_for('modify_employee', employee_id=employee.id) }}"><i style="font-size: 1.5em;" class="fa fa-edit"></i></a></abbr></div>
+                        
+                        
+                        <div style="float:left; padding: 1%; margin-top:0.25%;margin-left: 2em; margin-right: 2em;"><abbr title="Send Profile to Overseas Agencies"><a href="#"><i style="font-size: 1.5em;" class="fa fa-send-o"></i></a></abbr></div>
+                        
+                        
+                        <div style="float:left; padding:1%; margin-top:0.25%;margin-left: 2em; margin-right: 2em;"><abbr title="Send Profile to Labour Office"><a href="#"><i style="font-size: 1.5em;"  class="fa fa-envelope"></i></a></abbr></div>
+                        
+                        
+                        <div style="float:left; padding:1%; margin-top:0.25%;margin-left: 2em; margin-right: 2em;"><abbr title="Delete/Remove Profile"><a href=" {{ url_for('confirm_employee_delete', employee_id=employee.id) }} "><i style="font-size: 1.5em;"  class="fa fa-trash"></i></a></abbr></div>
+                    </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td></td><td>No Employees to list</td></tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    </div>
+    <h1 class="h3" style="padding: 10px;">Passport Less Employee List</h1>
+    <div class="table-responsive table-striped">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width:7%;">ID</th>
+                    <th style="width:30%">Full Name</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employee in incompletelist %}
+                <tr>
+                    <td>{{ employee.id }}</td>
+                    <td><a href=" {{ url_for('list_employees', employee_id=employee.id) }} ">{{ employee.name }}</a></td>
+                    <td>
+                        <a href="{{ url_for('employee_remove', employee_id=employee.id) }}">
+                            <div style="float:left; padding:1%;"><i style="font-size: 1.5em;"  class="fa fa-trash"></i><label>&nbsp;Delete</label></div>
+                        </a>&nbsp;
+                        <a href="{{ url_for('addEmployer', employee_id=employee.id) }}">
+                            <div style="float:left; padding:1%"><i style="font-size: 1.5em;" class="fa fa-plus"></i><label style="margin-left: 4px;">Employer Details</label></div>
+                        </a>
+                        <a href="{{ url_for('addBroker', employee_id=employee.id) }}">
+                            <div style="float:left; padding: 1%;"><i style="font-size: 1.5em;" class="fa fa-plus"></i><label style="margin-left:4px;">Broker Details</label></div>
+                        </a>
+                        
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td></td><td>No Employees to list</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="{{ url_for('static', filename='styles/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='styles/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>

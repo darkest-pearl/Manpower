@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Employer List</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/fonts/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md bg-dark">
+        <div class="container-fluid"><img class="me-3" width="48px" height="48px" style="border-radius:150px;margin-right: 2%" src="{{ url_for('static', filename='images/tayseer_logo_dark.jpg') }}"><a class="navbar-brand text-white" href="#">Tayseer Agency</a><button data-toggle="collapse"
+                class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" role="presentation"><a class="nav-link active text-white" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="{{ url_for('addEmployee') }}">Register</a></li>
+                </ul>
+                <form class="form-inline mr-auto bg-dark text-white" target="_self" action="{{ url_for('list_employers') }}" method="post">
+                    <div class="form-group" style='margin-left:2em;'><label for="search-field"><i class="fa fa-search"></i></label><input class="form-control search-field text-white border-0" style='background-color:gray; margin-left:1em;' type="search" id="search-field" name="search" autocomplete><button class="btn btn-light bg-success text-white action-button" style='margin-left:1em;' type="submit">Search</button></div><span style="color:aliceblue; margin-left:11%;">{{ message }}</span>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <h1 class="h3" style="padding: 10px;">Employer List</h1>
+    <div class="table-responsive table-striped">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width:7%;">ID</th>
+                    <th style="width:30%">Full Name</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for employer in employers %}
+                <tr>
+                    <td>{{ employer.id }}</td>
+                    <td>{{ employer.name }}</td>
+                    <td>
+                        <div style="float:left; padding: 1%; margin-top:0.25%;margin-left: 2em; margin-right: 2em;"><abbr title="Edit Profile"><a href="{{ url_for('modify_employer', employer_id=employer.id) }}"><i style="font-size: 1.5em;" class="fa fa-edit"></i></a></abbr></div>
+                        <div style="float:left; padding:1%;margin-left: 2em; margin-right: 2em;"><abbr title="Delete Profile"><a href="{{ url_for('confirm_employer_delete', employer_id=employer.id) }}"><i style="font-size: 1.5em;"  class="fa fa-trash"></i></a></abbr></div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan='3'>No Employers Registered Yet</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="{{ url_for('static', filename='styles/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='styles/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+</body>
+
+</html>

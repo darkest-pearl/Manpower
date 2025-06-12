@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter:400,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/css/Header-Blue.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/css/Header-Dark.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/css/styles.css') }}">
+    
+</head>
+
+<body>
+    
+        
+        <nav class="navbar navbar-light navbar-expand-md navigation-clean-search bg-dark text-white">
+            <div class="container"><img class="me-3" height="48px;" width="48px;" src="{{ url_for('static', filename='images/tayseer_logo_dark.jpg') }}" style="border-radius:150px; margin-left: -10%;"><a class="navbar-brand" href="{{ url_for('index') }}" style="margin-left: 3%;color:whitesmoke;">Tayseer Agency For Hiring</a>
+                <button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+                    <div class="collapse navbar-collapse" id="navcol-1">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item" role="presentation"><a class="nav-link text-white" href="{{ url_for('index') }}">Home</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link text-white" href="{{ url_for('addEmployee') }}">Register</a></li>
+                        </ul>
+                        
+                    </div>
+            </div>
+        </nav>
+    
+    <p class="h2" style="margin-top:20px; margin-left:15px;">Add Employee</p>
+    <hr class="hrr">
+    <form action="{{ url_for('register_employee') }}" method="post">
+    <div>
+    <div class="form-floating" style="float: left; margin-left: 30px;">
+        <h1 class="h4">Personal Details</h1>
+            <div class="form-floating mb-3"><input class="form-control" type="text" id="floatingInput" name="name" placeholder="Full name" required><span><font color='red'>{{message[0]}}</font></span></div>
+            <div class="form-floating mb-3"><input class="form-control" type="tel" id="floatingInput" placeholder="Contact #" name="contact-no" required><span><font color='red'>{{message[1]}}</font></span></div>
+            <div class="form-floating mb-3"><input class="form-control" type="text" id="floatingInput" placeholder="Address" name="address" required><span><font color='red'>{{message[2]}}</font></span></div>
+            <div class="form-floating mb-3"><input class="form-control" type="text" id="floatingInput" placeholder="salary" name="salary"><span><font color='red'>{{message[3]}}</font></span></div>
+            <div class="col-md-3"><select class="form-control form-select" id="validationServer04" required name="position" style="width: 280px; margin-left: -5%;"><option value="undefined" label="Position of Work" selected disabled></option><option value="beauty salon">Beauty Salon</option><option value="cook">Cook</option><option value="baby sitter">Baby Sitter</option><option value="driver">Driver</option><option value="nurse">Nurse</option><option value="house maid">House Maid</option></select></div>
+            <div class="row g-3" style="margin-left:1px;">
+                <div style="margin-right:10px;"></div>
+                
+            </div>
+            <div class="mb-3"><label class="form-label" for="customFile" style="margin-left: 10px;">Upload Image<input type="file" id="customFile" class="form-control border-0" name="image" multiple></label></div>
+    </div>
+
+
+    <div class="form-floating" style="float: left;margin-left: 30px;">
+        <h1 class="h4">Passport Details</h1>
+            <div class="form-floating mb-3"><input class="form-control" type="text" id="pass-no" name="pass-no" placeholder="Passport Number"></div>
+            <div class="form-floating mb-3"><input class="form-control" type="text" id="place-of-issue" placeholder="Place of Issue" name="pass-issue-place"></div>
+            <div class="form-floating mb-3"></div>
+            <div class="row g-3" style="margin-left: 0.5px;">
+                <div style="margin-right:10px;"></div>
+                <div style="margin-right:10px;">
+                    <div class="form-floating mb-3"><label>Date of Issue<br><input class="form-control" type="date" id='date-of-issue' name="pass-issue-date"></label></div>
+                </div>
+                <div style="margin-right:10px;">
+                    <div class="form-floating mb-3"><label>Valid Untill...<input class="form-control" type="date" id='valid-date' name="validity"></label></div>
+                </div>
+            </div>
+            <div class="form-floating"><label class="h6">Enabler</label>
+                <div class="form-check"><input class="form-check-input" value='yes' type="checkbox" id="pass" name='passcheck' onclick="return passenable()" checked><label class="form-check-label" for="pass">Don't have passport</label></div>
+            </div>
+    </div>
+
+
+    <div class="form-floating" style="float: left;margin-left: 30px;">
+        <h1 class="h4">Additional Details</h1>
+        <div class="col-md-3"><label class="form-label" for="validationServer04">Religion<select class="form-control form-select" id="validationServer04" required name="religion" style="width: 230px; margin-bottom: 5%; margin-left: -5%;"><option value="undefined" label="Religion" selected="" disabled="">Religion</option><option value="muslim">Muslim</option><option value="christian">Christian</option><option value="other">Other</option></select></label></div>
+            <div class="form-floating mb-3"><input class="form-control" type="text" id="floatingInput" placeholder="Place of Birth" name="pob" required></div>
+            <div class="form-floating mb-3"></div>
+            <div class="row g-3" style="margin-left:1px;">
+                <div style="margin-right:10px;"></div>
+                <div style="margin-right:10px;">
+                    <div class="form-floating mb-3"><label>Date of Birth<br><input class="form-control" type="date" name="dob" required></label></div>
+                </div>
+                <div style="margin-right:10px;">
+                    <div class="form-floating mb-3"><input class="form-control" type="number" id="floatingInput" name="no-child" placeholder="No of Children" style="margin-left: 40px;margin-top: 24px;width: 150px;"></div>
+                </div>
+            </div>
+            <hr class="hrr">
+            <div class="mb-3" style="float: left;"><label class="form-label h6" for="customFile" style="margin-left: 10px;">Civil status<br></label>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="status" value="single" checked><label class="form-check-label" for="formCheck-1">Single</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="status" value="married"><label class="form-check-label" for="formCheck-1">Married</label></div>
+            </div>
+            <div class="mb-3" style="margin-left: 75px; float: left; margin-right: 23%;"><label class="form-label h6" for="customFile" style="margin-left: 10px;">Gender<br></label>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="gender" value="female" checked><label class="form-check-label" for="formCheck-1">Female</label></div>
+                <div class="form-check"><input class="form-check-input" type="radio" id="formCheck-1" name="gender" value="male"><label class="form-check-label" for="formCheck-1">Male</label></div>
+            </div>
+            <div class="form-floating"><label class="h6">Language</label>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2" name="english" checked=""><label class="form-check-label" for="formCheck-2">English</label></div>
+                <div class="form-check"><input class="form-check-input" type="checkbox" id="formCheck-2" name="arabic" checked=""><label class="form-check-label" for="formCheck-2">Arabic</label></div>
+            </div>
+            <div class="col-md-3"><label class="form-label" for="validationServer04">Educational Attainment<select class="form-control form-select" id="validationServer04" name="education" style="width: 280px;"><option value="undefined" label="Education" selected="" disabled="">Education</option><option value="12">Secondary School Graduate</option><option value="13">Middle School Graduate</option><option value="14">Elementary School Graduate</option></select></label></div>
+            
+    </div>
+    <div align='center'>
+        <button class="btn btn-primary" type="submit" style="margin-right: 20px; margin-top: 0.6%; width: 25%; font-size: 1.5em;background-color:#333234">Submit</button>
+    </div>
+</div>
+</form>
+
+    <script src="{{ url_for('static', filename='styles/assets/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='styles/assets/bootstrap/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='styles/assets/js/enabler.js') }}"></script>
+</body>
+
+</html>

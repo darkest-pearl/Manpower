@@ -1,0 +1,196 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Tayseer Agency Edit Broker Profile</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">
+
+    
+
+    <!-- Bootstrap core CSS -->
+<link href="{{ url_for('static', filename='styles/assets/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/fonts/font-awesome.min.css') }}">
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+      .rem{
+          color: inherit; 
+      }
+
+      .icon {
+          color:#f0f0f0;
+          text-decoration:none;
+      }
+        
+      .rem:hover .icon{
+          color:cornflowerblue;
+          text-decoration:none;
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='styles/dashboard.css')}}" rel="stylesheet">
+  </head>
+  <body>
+    
+<header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3" href="#"><img class="me-3" height="48px;" width="48px;" src="{{ url_for('static', filename='images/tayseer_logo_dark.jpg') }}" style="border-radius:150px; margin-left: -5%;">Tayseer Agency</a>
+  <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <input class="form-control form-control-dark w-100" type="text" disabled placeholder="Search" aria-label="Search">
+  <div class="navbar-nav">
+    <div class="nav-item text-nowrap">
+      <a class="nav-link px-3" href="#">Sign out</a>
+    </div>
+  </div>
+</header>
+
+<div class="container-fluid">
+  <div class="row">
+    <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+            <span>Navigate Page</span>
+            <a class="link-secondary" href="#" aria-label="Add a new report">
+              <span data-feather="plus-circle"></span>
+            </a>
+          </h6>
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="#personal">
+              <span data-feather="home"></span>
+              Personal Details Form
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#passport">
+              <span data-feather="bar-chart-2"></span>
+              Passport Details Form
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#additional">
+              <span data-feather="bar-chart-2"></span>
+              Additional Details Form
+            </a>
+          </li>                    
+        </ul>
+
+        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+          <span>External Links</span>
+          <a class="link-secondary" href="#" aria-label="Add a new report">
+            <span data-feather="plus-circle"></span>
+          </a>
+        </h6>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('index') }}">
+              <span data-feather="file-text"></span>
+              Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('addEmployee') }}">
+              <span data-feather="file-text"></span>
+              Register Employee
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('list_employees') }}">
+              <span data-feather="file-text"></span>
+              Complete Employees list
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('list_employers') }}">
+              <span data-feather="file-text"></span>
+              Complete Employers list
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('list_brokers') }}">
+              <span data-feather="file-text"></span>
+              Complete Brokers list
+            </a>
+          </li>
+          
+        </ul>
+      </div>
+    </nav>
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div id="stats" class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Edit Broker Profile<br> <label style="font-family:Script MT Bold">{{broker.name}}</label></h1>
+      </div>
+      <form action="{{ url_for('modify_broker_form', broker_id=broker.id, location=location) }}" method="post">
+          <div class='form-control'>
+              <p class='h4' id="personal">Profile Details</p>
+              <div class="mb-3" style="width:450px;float:none; margin-left:5px;margin-right:5px;"><input class="form-control" type="text" id="floatingInput" name="name" placeholder="Fullname:{{broker.name}}" required><span><font color='red'>{{message[0]}}</font></span></div>
+              <div class="mb-3" style="width:450px;float:none;margin-left:5px;margin-right:5px;"><input class="form-control" type="tel" id="floatingInput" placeholder="Contact #:{{broker.contact}}" name="contact-no"><span><font color='red'>{{message[1]}}</font></span></div>
+              <div class="mb-3" style="width:450px;float:none;margin-left:5px;margin-right:5px;"><input class="form-control" type="text" id="floatingInput" placeholder="National ID#:{{broker.national_id}}" name="national_id"><span><font color='red'>{{message[2]}}</font></span></div>
+              <p class='h4'>Brokered Employees</p>
+              <div class='container'>
+                <table style='width:70%' class='table table-striped table-sm'>
+                    <thead>
+                        <tr>
+                            <th>ID #</th>
+                            <th>Employee Name</th>
+                            <th style='width:10%'>Job</th>
+                        </tr>    
+                    </thead>
+                    <tbody>
+                        {% for employee in employees %}
+                        <tr class='rem'>
+                            <td>
+                            <a href=" {{ url_for('employee_broker_unlink', employee_id=employee.id, broker_id=broker.id, location=location) }}" style="text-decoration:none;">
+                            <i class='fa icon fa-remove'></i>
+                            </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;{{ employee.id }}</td>
+                            <td>{{ employee.name }}</td>
+                            <td>{{ employee.position }}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan='3' align='center'>No registered employees for {{ broker.name}}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                    </tbody>
+                </table>
+            </div>
+        <div style="width:40em;padding:1em; margin-top:2em;">
+          <button class="btn btn-primary" type="submit" style="margin-right: 20px; margin-top: 0.6%; font-size: 1.5em;">Submit</button>
+        </div>
+        </div>
+        </form>
+    </main>
+  </div>
+</div>
+
+
+
+
+    <script src="{{ url_for('static', filename='styles/assets/dist/js/bootstrap.bundle.min.js') }}"></script>
+
+      <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script><script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script><script src="{{ url_for('static', filename='styles/dashboard.js') }}"></script>
+  </body>
+</html>

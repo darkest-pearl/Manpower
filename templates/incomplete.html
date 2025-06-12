@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/css/Footer-Dark.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/assets/css/styles.css') }}">
+</head>
+
+<body>
+    <nav class="navbar navbar-light navbar-expand-md bg-dark">
+        <div class="container-fluid"><img class="me-3" width="48" height="48" src="{{ url_for('static', filename='images/tayseer_logo_dark.jpg') }}" style="border-radius: 150px;margin-right: 2%"><a class="navbar-brand text-white" href="#">Tayseer Agency</a><button data-toggle="collapse"
+                class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="{{ url_for('index') }}">Home</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="{{ url_for('addEmployee') }}">Register</a></li>
+                    <li class="nav-item" role="presentation"><a class="nav-link text-white" href="{{ url_for('list_incomplete') }}">Incomplete</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <h1 align="center" style="margin-bottom:2%">Employees With No Passports</h1>
+    <div class="table-responsive table table-striped">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th style="width: 10%;border: 0;"></th>
+                    <th style="width: 10%;">ID #</th>
+                    <th>Full Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for incomplete in incompletes %}
+                <tr>
+                    <td>Cell 1</td>
+                    <td>{{ incomplete.id }}</td>
+                    <td>{{ incomplete.name }}</td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan='3'>There are no Incomplete Employee Forms</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="#">Company</a></li>
+                            <li><a href="#">Team</a></li>
+                            <li><a href="#">Careers</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6 item text">
+                        <h3>Company Name</h3>
+                        <p>Praesent sed lobortis mi. Suspendisse vel placerat ligula. Vivamus ac sem lacus. Ut vehicula rhoncus elementum. Etiam quis tristique lectus. Aliquam in arcu eget velit pulvinar dictum vel in justo.</p>
+                    </div>
+                </div>
+                <p class="copyright">Company Name © 2017</p>
+            </div>
+        </footer>
+    </div>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+</body>
+
+</html>
